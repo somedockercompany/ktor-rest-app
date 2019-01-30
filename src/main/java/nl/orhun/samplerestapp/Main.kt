@@ -2,16 +2,35 @@ package nl.orhun.samplerestapp
 
 import io.undertow.Handlers
 import io.undertow.Undertow
-import io.undertow.server.handlers.resource.ClassPathResourceManager
-import io.undertow.util.Headers
+import io.undertow.servlet.Servlets
+import io.undertow.servlet.Servlets.servlet
+import nl.orhun.samplerestapp.config.JerseyConfig
+import org.glassfish.jersey.servlet.ServletContainer
+import org.jboss.weld.environment.servlet.Listener
 
 fun main() {
+    val servletBuilder = Servlets.deployment()
+
+    servletBuilder.setClassLoader(ClassLoader.getSystemClassLoader())
+            .setContextPath("/app")
+            .setDeploymentName("app.war")
+            .addListener(Servlets.listener(Listener::class.java))
+            .addServlets(
+                    servlet("jerseyServlet", ServletContainer::class.java)
+                            .setLoadOnStartup(1)
+                            .addInitParam("javax.ws.rs.Application", JerseyConfig::class.java.name)
+                            .addMapping("/rest/*")
+            )
+
+    val manager = Servlets.defaultContainer().addDeployment(servletBuilder)
+    manager.deploy()
+
+    val path = Handlers.path(Handlers.redirect("/app"))
+            .addPrefixPath("/app", manager.start())
+
     val server = Undertow.builder()
             .addHttpListener(8090, "localhost")
-            .setHandler(Handlers.path().addExactPath("/") {
-                it.responseHeaders.put(Headers.CONTENT_TYPE, "application/json")
-                it.responseSender.send("""{ "text": "Hello world!" }""")
-            }.addPrefixPath("/", Handlers.resource(ClassPathResourceManager(Thread.currentThread().contextClassLoader, "public")))
-            ).build()
+            .setHandler(path)
+            .build()
     server.start()
 }
