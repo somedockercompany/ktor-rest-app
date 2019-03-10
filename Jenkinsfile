@@ -9,8 +9,9 @@ pipeline {
             }
         }
         stage('Build docker image') {
+            agent none
             steps {
-                sh 'docker./build.sh'
+                sh 'docker login && docker./build.sh'
             }
         }
     }
