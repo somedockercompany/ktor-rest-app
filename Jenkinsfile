@@ -5,14 +5,12 @@ pipeline {
             agent { docker 'maven:3-alpine' }
             steps {
                 echo 'Hello, Maven'
-                sh 'mvn --version'
+                sh 'mvn clean install'
             }
         }
-        stage('Example Test') {
-            agent { docker 'openjdk:8-jre' }
+        stage('Build docker image') {
             steps {
-                echo 'Hello, JDK'
-                sh 'java -version'
+                sh 'docker./build.sh'
             }
         }
     }
