@@ -6,11 +6,14 @@ pipeline {
             steps {
                 echo 'Hello, Maven'
                 sh 'mvn clean install'
+                stash name: "jar-stash", includes: "target/*-jar-with-dependencies.jar"
+
             }
         }
         stage('Build docker image') {
             agent any
             steps {
+                unstash "jar-stash"
                 sh './docker/build.sh'
             }
         }
