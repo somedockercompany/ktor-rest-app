@@ -14,9 +14,7 @@ pipeline {
             agent any
             steps {
                 unstash "jar-stash"
-                sh 'ls'
-                sh 'ls target/'
-                sh './docker/build.sh'
+                sh 'cd docker && ./build.sh'
             }
         }
     }
