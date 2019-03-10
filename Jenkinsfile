@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('Example Build') {
+        stage('Maven build') {
             agent { docker 'maven:3-alpine' }
             steps {
                 echo 'Hello, Maven'
@@ -9,7 +9,7 @@ pipeline {
             }
         }
         stage('Build docker image') {
-            agent none
+            agent any
             steps {
                 sh 'docker login && docker./build.sh'
             }
