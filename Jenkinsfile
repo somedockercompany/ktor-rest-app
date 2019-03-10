@@ -11,6 +11,8 @@ pipeline {
         stage('Build docker image') {
             agent any
             steps {
+                sh 'ls'
+                sh 'pwd'
                 sh 'docker login && sh docker./build.sh'
             }
         }
