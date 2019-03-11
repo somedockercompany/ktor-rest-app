@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>sample-rest-api</groupId>
-    <artifactId>nl.orhun.samplerestapi</artifactId>
+    <artifactId>nl.ktor.samplerestappi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
