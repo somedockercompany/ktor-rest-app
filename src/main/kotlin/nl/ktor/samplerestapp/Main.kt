@@ -12,7 +12,7 @@ fun main() {
     val server = embeddedServer(Netty, port = 8080) {
         routing {
             get("/") {
-                call.respondText("Hello World!", ContentType.Text.Plain)
+                call.respondText("Hello World! a", ContentType.Text.Plain)
             }
             get("/demo") {
                 call.respondText("HELLO WORLD!")
