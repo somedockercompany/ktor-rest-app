@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sh '''docker-machine ssh rest-app-vm
                  docker stop $(docker ps -q) || true
-                docker run -p 8090:8080 -dit simple-rest-app:latest
+                 docker run -p 8090:8080 -dit somedockercompany/simple-rest-app:latest
                 '''
             }
         }
