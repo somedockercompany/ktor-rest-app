@@ -24,7 +24,7 @@ pipeline {
             steps {
                 sh '''
                 docker-machine env rest-app-vm
-                eval $(docker-machine env rest-app-vm --shell bash)
+                eval $(docker-machine env rest-app-vm --shell ash)
                 docker stop docker ps -q || true &&
                 docker pull somedockercompany/simple-rest-app:latest
                 docker run -p 8090:8080 -dit somedockercompany/simple-rest-app:latest
