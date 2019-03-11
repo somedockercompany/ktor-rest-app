@@ -17,5 +17,13 @@ pipeline {
                 sh 'cd docker && ./build.sh'
             }
         }
+        stage('Deploy') {
+            agent { docker 'somedockercompany/rest-app-deploy:latest' }
+            steps {
+                sh 'docker-machine ssh rest-app-vm'
+                sh 'docker stop $(docker ps -q) || true'
+                sh 'docker run -dit simple-rest-app:latest'
+            }
+        }
     }
 }
