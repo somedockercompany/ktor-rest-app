@@ -1,7 +1,6 @@
 pipeline {
     agent any
     stages {
-    /*
         stage('Maven build') {
             agent { docker 'maven:3-alpine' }
             steps {
@@ -18,7 +17,6 @@ pipeline {
                 sh 'cd docker && ./build.sh'
             }
         }
-        */
         stage('Deploy') {
             agent { docker 'somedockercompany/rest-app-deploy:latest' }
             steps {
