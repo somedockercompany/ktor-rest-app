@@ -23,7 +23,7 @@ pipeline {
             agent { docker 'somedockercompany/rest-app-deploy:latest' }
             steps {
                 sh '''
-                docker-machine env rest-app-vm
+                docker-machine env rest-app-vm --shell bash
                 eval $(docker-machine env rest-app-vm)
                 docker stop docker ps -q || true &&
                 docker pull somedockercompany/simple-rest-app:latest
