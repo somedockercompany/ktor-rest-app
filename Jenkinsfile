@@ -20,9 +20,10 @@ pipeline {
         stage('Deploy') {
             agent { docker 'somedockercompany/rest-app-deploy:latest' }
             steps {
-                sh 'docker-machine ssh rest-app-vm'
-                sh 'docker stop $(docker ps -q) || true'
-                sh 'docker run -P 8090:8080 -dit simple-rest-app:latest'
+                sh '''docker-machine ssh rest-app-vm
+                 docker stop $(docker ps -q) || true
+                docker run -P 8090:8080 -dit simple-rest-app:latest
+                '''
             }
         }
     }
