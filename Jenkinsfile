@@ -7,7 +7,6 @@ pipeline {
                 echo 'Hello, Maven'
                 sh 'mvn clean install'
                 stash name: "jar-stash", includes: "target/*-jar-with-dependencies.jar"
-
             }
         }
         stage('Build docker image') {
