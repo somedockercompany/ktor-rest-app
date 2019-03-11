@@ -4,4 +4,6 @@ COPY app.tar.gz app.tar.gz
 
 RUN tar -xf app.tar.gz
 
+EXPOSE 8090
+
 ENTRYPOINT java -jar app.jar
